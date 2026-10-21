@@ -1,0 +1,23 @@
+[hidden]{display:none!important}
+.camera-stage{position:relative;width:100%;height:min(70vh,620px);min-height:240px;overflow:hidden;background:#101b17;border-radius:12px;margin-bottom:12px;isolation:isolate}
+.camera-stage video{width:100%;height:100%;object-fit:contain;display:block}
+.capture-frame{position:absolute;left:50%;top:50%;width:var(--frame-size,0px);height:var(--frame-size,0px);transform:translate(-50%,-50%);box-shadow:0 0 0 100vmax #0009;border:1px solid #ffffffb3;pointer-events:none}
+.circle-guide{position:absolute;left:7.5%;top:7.5%;width:85%;height:85%;border:2px dashed #fff;border-radius:50%;filter:drop-shadow(0 1px 2px #000)}
+.crosshair{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 2px #000)}
+.crosshair:before,.crosshair:after{content:"";position:absolute;background:#fff}.crosshair:before{width:24px;height:2px;top:11px}.crosshair:after{width:2px;height:24px;left:11px}
+.corner{position:absolute;width:24px;height:24px;border-color:#baffd6;border-style:solid;border-width:0}.tl{left:-2px;top:-2px;border-top-width:4px;border-left-width:4px}.tr{right:-2px;top:-2px;border-top-width:4px;border-right-width:4px}.bl{left:-2px;bottom:-2px;border-bottom-width:4px;border-left-width:4px}.br{right:-2px;bottom:-2px;border-bottom-width:4px;border-right-width:4px}
+.live-label{position:absolute;top:9px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#fff;background:#0009;border-radius:5px;padding:4px 8px;font-size:.8rem}
+.camera-actions{margin:12px 0}#shoot{background:#bfe8cd;color:#143f2d;border:2px solid #205c45;min-height:52px}button:focus-visible,.filelabel:focus-within{outline:3px solid #b78520;outline-offset:3px}.filelabel:has(+input:focus-visible){outline:3px solid #b78520;outline-offset:3px}.sub{line-height:1.6}main{padding-bottom:max(45px,env(safe-area-inset-bottom))}
+@media(max-width:420px){.card{padding:11px}.preview{gap:4px}.preview figcaption{font-size:.7rem}.camera-actions button{flex:1;font-size:.88rem;padding:10px}h1{font-size:1.3rem}}
+
+/* Keep the preview and shutter together inside the current viewport. */
+body.camera-open{overflow:hidden}
+.camera-open .camera-card{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0;background:#101b17;color:#fff;width:100%;height:100vh;height:100dvh;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:8px;overflow:hidden}
+.camera-open .camera-card>.camera-stage{height:100%;min-height:0;margin:0;border-radius:8px}
+.camera-open .camera-card>#cameraStatus{color:#e0eee6;font-size:.8rem;line-height:1.35;margin:0;text-align:center}
+.camera-open .camera-card>.camera-actions{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px;margin:0}
+.camera-open .camera-actions #startCamera{display:none}
+.camera-open .camera-actions button{min-height:54px;padding:10px 8px;font-size:1rem}
+.camera-open .camera-actions #shoot{background:#bfe8cd;border-color:#bfe8cd;color:#143f2d}
+.camera-open .camera-card>:not(.camera-stage):not(#cameraStatus):not(.camera-actions){display:none}
+@media(max-height:380px) and (orientation:landscape){.camera-open .camera-card{gap:4px}.camera-open .camera-card>#cameraStatus{font-size:.7rem}.camera-open .camera-actions button{min-height:44px;padding:6px}}
