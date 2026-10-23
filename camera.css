@@ -1,0 +1,67 @@
+[hidden]{display:none!important}
+.camera-stage{position:relative;width:100%;height:min(70vh,620px);min-height:240px;overflow:hidden;background:#101b17;border-radius:12px;margin-bottom:12px;isolation:isolate}
+.camera-stage video{width:100%;height:100%;object-fit:contain;display:block}
+.capture-frame{position:absolute;left:50%;top:50%;width:var(--frame-size,0px);height:var(--frame-size,0px);transform:translate(-50%,-50%);box-shadow:0 0 0 100vmax #0009;border:1px solid #ffffffb3;pointer-events:none}
+.circle-guide{position:absolute;left:7.5%;top:7.5%;width:85%;height:85%;border:2px dashed #fff;border-radius:50%;filter:drop-shadow(0 1px 2px #000)}
+.crosshair{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 2px #000)}
+.crosshair:before,.crosshair:after{content:"";position:absolute;background:#fff}.crosshair:before{width:24px;height:2px;top:11px}.crosshair:after{width:2px;height:24px;left:11px}
+.corner{position:absolute;width:24px;height:24px;border-color:#baffd6;border-style:solid;border-width:0}.tl{left:-2px;top:-2px;border-top-width:4px;border-left-width:4px}.tr{right:-2px;top:-2px;border-top-width:4px;border-right-width:4px}.bl{left:-2px;bottom:-2px;border-bottom-width:4px;border-left-width:4px}.br{right:-2px;bottom:-2px;border-bottom-width:4px;border-right-width:4px}
+.live-label{position:absolute;top:9px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#fff;background:#0009;border-radius:5px;padding:4px 8px;font-size:.8rem}
+.camera-actions{margin:12px 0}#shoot{background:#bfe8cd;color:#143f2d;border:2px solid #205c45;min-height:52px}button:focus-visible,.filelabel:focus-within{outline:3px solid #b78520;outline-offset:3px}.filelabel:has(+input:focus-visible){outline:3px solid #b78520;outline-offset:3px}.sub{line-height:1.6}main{padding-bottom:max(45px,env(safe-area-inset-bottom))}
+@media(max-width:420px){.card{padding:11px}.preview{gap:4px}.preview figcaption{font-size:.7rem}.camera-actions button{flex:1;font-size:.88rem;padding:10px}h1{font-size:1.3rem}}
+
+/* Keep the preview and shutter together inside the current viewport. */
+body.camera-open{overflow:hidden}
+.camera-open .camera-card{position:fixed;inset:0;z-index:1000;margin:0;border:0;border-radius:0;background:#101b17;color:#fff;width:100%;height:100vh;height:100dvh;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:8px;overflow:hidden}
+.camera-open .camera-card>.camera-stage{height:100%;min-height:0;margin:0;border-radius:8px}
+.camera-open .camera-card>#cameraStatus{color:#e0eee6;font-size:.8rem;line-height:1.35;margin:0;text-align:center}
+.camera-open .camera-card>.camera-actions{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px;margin:0}
+.camera-open .camera-actions #startCamera{display:none}
+.camera-open .camera-actions button{min-height:54px;padding:10px 8px;font-size:1rem}
+.camera-open .camera-actions #shoot{background:#bfe8cd;border-color:#bfe8cd;color:#143f2d}
+.camera-open .camera-card>:not(.camera-stage):not(#cameraStatus):not(.camera-actions){display:none}
+@media(max-height:380px) and (orientation:landscape){.camera-open .camera-card{gap:4px}.camera-open .camera-card>#cameraStatus{font-size:.7rem}.camera-open .camera-actions button{min-height:44px;padding:6px}}
+
+
+/* Shutter and stop belong only to the camera view. */
+body:not(.camera-open) #shoot,body:not(.camera-open) #stopCamera{display:none}
+body:not(.camera-open) #cameraStatus:empty{display:none}
+
+/* Two equal-width actions on the normal page. */
+body:not(.camera-open) .camera-actions,.save-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-items:stretch}
+body:not(.camera-open) .camera-actions #startCamera,body:not(.camera-open) .camera-actions .filelabel,.save-actions button{width:100%;min-width:0;margin:0;text-align:center;display:flex;align-items:center;justify-content:center;padding:12px 5px;font-size:clamp(.8rem,3.4vw,1rem)}
+.camera-open .camera-actions .filelabel{display:none}
+#rows td:first-child,thead th:first-child{width:42px;min-width:42px;text-align:center}
+#rows input[type=checkbox],#selectAll{width:22px;height:22px;vertical-align:middle;accent-color:#205c45;cursor:pointer}
+#rows td:first-child{padding:12px 10px}
+
+/* Match the two entry buttons and keep camera controls isolated. */
+body:not(.camera-open) .camera-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+body:not(.camera-open) #startCamera,body:not(.camera-open) #choosePhoto{appearance:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;height:52px;min-height:52px;min-width:0;margin:0;padding:8px 4px;border:0;border-radius:9px;font-family:inherit;font-size:clamp(.8rem,3.4vw,1rem);font-weight:600;line-height:1.25;text-align:center}
+.camera-open #choosePhoto,.camera-open .camera-actions .filelabel{display:none!important}
+.history-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-items:stretch}
+.history-actions button{width:100%;min-width:0;min-height:48px;padding:8px 3px;white-space:nowrap;font-size:clamp(.66rem,2.9vw,.95rem);line-height:1.25}
+#selectedCount{margin:8px 0}
+#rows td:first-child,thead th:first-child{position:sticky;left:0;z-index:1;background:#fff;width:72px;min-width:72px;padding:4px;box-shadow:1px 0 0 #e3e9e4}
+.history-select{display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;cursor:pointer;white-space:nowrap;font-size:.75rem}
+#rows .history-select input[type=checkbox],#selectAll{appearance:auto!important;display:inline-block!important;visibility:visible!important;opacity:1!important;position:static!important;width:23px;height:23px;margin:0;flex:0 0 23px}
+
+/* Results open directly, with large images and always visible actions. */
+body.result-open{overflow:hidden}
+.result-dialog{position:fixed;inset:0;width:100vw;max-width:none;height:100vh;height:100dvh;max-height:none;margin:0;border:0;padding:0;background:#f4f7f4;color:#20332a;overflow:hidden;box-sizing:border-box}
+.result-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.result-dialog::backdrop{background:#0009}
+.result-header{background:#fff;padding:max(10px,env(safe-area-inset-top)) 14px 10px;text-align:center;border-bottom:1px solid #dae5dd}
+.result-header h2{font-size:1rem;margin:0 0 4px}
+.result-percentage{font-size:clamp(1.5rem,5vw,2.2rem);font-weight:750;color:#205c45;line-height:1.3}
+.result-content{overflow:auto;overscroll-behavior:contain;padding:12px max(12px,env(safe-area-inset-right)) 16px max(12px,env(safe-area-inset-left));-webkit-overflow-scrolling:touch}
+.result-figures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:1440px;margin:auto}
+.result-figures figure{margin:0;min-width:0}
+.result-figures figcaption{font-weight:650;text-align:center;margin:0 0 6px}
+.result-figures canvas{display:block;width:100%;height:auto;aspect-ratio:1;background:#e9eeea;border-radius:8px}
+.result-footer{background:#fff;border-top:1px solid #dae5dd;padding:8px max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+#previewStatus{font-size:.78rem;line-height:1.35;margin:0 0 7px;max-height:3em;overflow:auto;overflow-wrap:anywhere}
+.result-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.result-buttons button{min-width:0;min-height:50px;padding:10px 3px;font-size:clamp(.8rem,3.4vw,1rem)}
+@media(max-width:600px){.result-figures{grid-template-columns:minmax(0,1fr);gap:18px}}
+@media(max-height:400px) and (orientation:landscape){.result-header{padding-top:5px;padding-bottom:5px}.result-header h2{display:none}.result-percentage{font-size:1.3rem}.result-footer{padding-top:5px}#previewStatus{display:none}.result-buttons button{min-height:42px;padding:6px}}
